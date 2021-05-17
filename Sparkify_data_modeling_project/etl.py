@@ -7,6 +7,17 @@ from sql_queries import *
 
 # define function get all data files
 def get_files(filepath):
+    """
+    Description: This function is responsible for extract all source data
+    absolute file path and save it to a list for the purpose of loading 
+    source data into dataframe in datafram_file_data function.
+
+    Args:
+        filepath: path of source data
+    
+    Returns:
+        list of all souce files absolute file path
+    """
     all_files = []
     for root, dirs, files in os.walk(filepath):
         files = glob.glob(os.path.join(root,'*.json'))
@@ -17,7 +28,17 @@ def get_files(filepath):
 
 # define function to process file data to dataframe
 def dataframe_file_data(file_path):
-    # generate song dataframe
+    """
+    Description: This function is responsible for transfer souce data 
+    like json format to pandas datafram.
+
+    Args:
+        file_path: path of source data
+    
+    Returns:
+        dataframe of source data
+    """
+    # generate source data dataframe
     dfs = []
     data_file_path = get_files(file_path)
     for file in data_file_path:
@@ -29,6 +50,18 @@ def dataframe_file_data(file_path):
 
 # define function to process song data to songs table and artists table
 def process_song_data(conn, cur, file_path):
+    """
+    Description: This function is responsible for process song data 
+    and load into song table and artist table
+
+    Args:
+        conn: psycopg2 connection
+        cur: psycopg2 cursor
+        file_path: path of source data
+    
+    Returns:
+        None
+    """
     song_data = []
     artist_data = []
     song_df = dataframe_file_data(file_path)
@@ -50,6 +83,18 @@ def process_song_data(conn, cur, file_path):
 
 # define function to process log data to time, users and songplays table
 def process_log_data(conn, cur, file_path):
+    """
+    Description: This function is responsible for process log data
+    and load into time, users and songplays table.
+
+    Args:
+        conn: psycopg2 connection
+        cur: psycopg2 cursor
+        file_path: path of source data
+    
+    Returns:
+        None 
+    """
     log_df = dataframe_file_data(file_path)
     # filter log_df
     log_df = log_df[log_df['page']=='NextSong']
@@ -102,14 +147,36 @@ def process_log_data(conn, cur, file_path):
     print("Songplays table has been inserted completed.")
 
 def main():
-    conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
-    cur = conn.cursor()
+    """
+    Descriptions: This function is scripts main method. It is responsible
+    for create connection and cursor to postgresql database, process song
+    data and log data, and then close cursor and connection.
+
+    Args:
+        None
+    
+    Returns:
+        None
+    """
+    try:
+        conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
+    except psycopg2.Error as e:
+        print("Error: can not connect to database")
+        print(e)
+
+    try:
+        cur = conn.cursor()
+    except psycopg2.Error as e:
+        print("Error: can not create a cursor")
+        print(e)
+    
     song_file_path = 'data/song_data'
     log_file_path = 'data/log_data'
 
     process_song_data(conn, cur, file_path=song_file_path)
     process_log_data(conn, cur, file_path=log_file_path)
 
+    cur.close()
     conn.close()
 
 if __name__ == '__main__':
