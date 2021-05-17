@@ -119,14 +119,14 @@ def process_log_data(conn, cur, file_path):
 
     # Insert Records into Time Table
     for i, row in time_df.iterrows():
-        cur.execute(time_table_insert, row)
+        cur.execute(time_table_insert, list(row))
         conn.commit()
     print("Time table has been inserted completed.")
 
     # Extract Data for Users Table
     user_df = log_df[['userId', 'firstName', 'lastName', 'gender', 'level']]
     for i, row in user_df.iterrows():
-        cur.execute(user_table_insert, row)
+        cur.execute(user_table_insert, list(row))
         conn.commit()
     print("Users table has been inserted completed.")
     # Extract Data and Songplays Table
