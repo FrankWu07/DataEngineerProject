@@ -7,6 +7,7 @@
   * [Table Design](#Table-Design)
   * [Process Design](#Process-Design)
 - [Result](#Result)
+- [Project Files](#Project-Files)
 - [Future Work](#Future-Work)
 
 ## Introduction
@@ -137,6 +138,10 @@
   ![image-20210313025742793](https://tva1.sinaimg.cn/large/008eGmZEgy1gp2uem0ma2j31rw0mstcy.jpg)
 
 
+
+## Project Files
+
+`sql` folder: contains all sql command for this project.
 
 ## Future Work
 
