@@ -10,12 +10,12 @@ https://www.kaggle.com/c/instacart-market-basket-analysis/overview.
 
 ## Contents
 
-* [Data Description](*Data Description)
-* [Project Main Steps](*Project Main Steps)
-* [Project Application Result](*Project Application Result)
-* [Project Files](*Project Files)
-* [Technologies Required](*Technologies Required)
-* [Future Works](*Future Works)
+* [Data Description](*Data-Description)
+* [Project Main Steps](*Project-Main-Steps)
+* [Project Application Result](*Project-Application-Result)
+* [Project Files](*Project-Files)
+* [Technologies Required](*Technologies-Required)
+* [Future Works](*Future-Works)
 
 ## Data Description
 
